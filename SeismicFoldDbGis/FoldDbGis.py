@@ -12,6 +12,9 @@ class FoldDbGis:
     def create_table(self):
         Bin.__table__.create(self.__db_engine)
 
+    def delete_table(self):
+        Bin.__table__.drop(self.__db_engine)
+
     def load_from_csv(self, filename: str):
         """
         load from CSV with columns ['Easting', 'Northing', 'Fold', 'Bin Number', 'Row', 'Column']

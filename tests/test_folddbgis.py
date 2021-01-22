@@ -22,8 +22,15 @@ class FoldDbGisTestCase(unittest.TestCase):
         listen(engine, 'connect', load_spatialite)
 
         fold = FoldDbGis(db_engine=engine)
+
         fold.create_table()
+
+        fold.delete_table()
+
+        fold.create_table()
+
         fold.load_from_csv(csv_file)
+
         fold.update_from_csv(csv_file)
 
         rem = pathlib.Path(db_file)
