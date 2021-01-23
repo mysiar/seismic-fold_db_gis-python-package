@@ -18,10 +18,10 @@ class FoldDbGisTestCase(unittest.TestCase):
         db_file = 'tests/data/fold.sqlite'
         copyfile(empty_file, db_file)
 
-        engine = create_engine('sqlite:///' + db_file, echo=True)
+        engine = create_engine('sqlite:///' + db_file, echo=False)
         listen(engine, 'connect', load_spatialite)
 
-        fold = FoldDbGis(db_engine=engine)
+        fold = FoldDbGis(db_engine=engine, verbose=True)
 
         fold.create_table()
 

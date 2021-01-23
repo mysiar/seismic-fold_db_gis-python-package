@@ -5,9 +5,10 @@ from SeismicFoldDbGis.entity.Bin import Bin
 
 class FoldDbGis:
 
-    def __init__(self, db_engine, commit_every: int = 10000):
+    def __init__(self, db_engine, commit_every=10000, verbose=False):
         self.__db_engine = db_engine
         self.__commit_every = commit_every
+        self.__verbose = verbose
 
     def create_table(self):
         Bin.__table__.create(self.__db_engine)
@@ -21,6 +22,7 @@ class FoldDbGis:
         """
         _session = self.__create_session()
         counter = 1
+        verbose = 1
         with open(filename, 'r') as csv_file:
             csv_reader = csv.reader(csv_file, delimiter=',')
             next(csv_reader)
@@ -29,10 +31,17 @@ class FoldDbGis:
                 _session.add(bin)
 
                 if self.__commit_every == counter:
+                    if self.__verbose is True:
+                        print("{:15,d}".format(verbose))
                     _session.commit()
                     counter = 1
+                else:
+                    counter += 1
+                if self.__verbose is True:
+                    verbose += 1
 
-                counter += 1
+            if self.__verbose is True:
+                print("{:15,d}".format(verbose))
 
             _session.commit()
         _session.close()
@@ -42,7 +51,8 @@ class FoldDbGis:
         update from CSV with columns ['Easting', 'Northing', 'Fold', 'Bin Number', 'Row', 'Column']
         """
         _session = self.__create_session()
-        counter = 0
+        counter = 1
+        verbose = 1
         with open(filename, 'r') as csv_file:
             csv_reader = csv.reader(csv_file, delimiter=',')
             next(csv_reader)
@@ -57,10 +67,17 @@ class FoldDbGis:
                     _session.add(b)
 
                 if self.__commit_every == counter:
+                    if self.__verbose is True:
+                        print("{:15,d}".format(verbose))
                     _session.commit()
-                    counter = 0
+                    counter = 1
+                else:
+                    counter += 1
+                if self.__verbose is True:
+                    verbose += 1
 
-                counter += 1
+            if self.__verbose is True:
+                print("{:15,d}".format(verbose))
 
             _session.commit()
         _session.close()

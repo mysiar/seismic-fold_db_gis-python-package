@@ -8,7 +8,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="SeismicFoldDbGis",
-    version="0.0.3",
+    version="0.0.4",
     author="Piotr Synowiec",
     author_email="psynowiec@gmail.com",
     description="Loads calculated fold from CSV file to GIS database",
