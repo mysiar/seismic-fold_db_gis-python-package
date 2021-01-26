@@ -1,3 +1,4 @@
+import sys
 import csv
 from sqlalchemy.orm import sessionmaker
 from SeismicFoldDbGis.entity.Bin import Bin
@@ -32,7 +33,8 @@ class FoldDbGis:
 
                 if self.__commit_every == counter:
                     if self.__verbose is True:
-                        print("{:15,d}".format(verbose))
+                        sys.stdout.write("{:15,d}".format(verbose) + '\n')
+                        sys.stdout.flush()
                     _session.commit()
                     counter = 1
                 else:
@@ -41,7 +43,8 @@ class FoldDbGis:
                     verbose += 1
 
             if self.__verbose is True:
-                print("{:15,d}".format(verbose))
+                sys.stdout.write("{:15,d}".format(verbose) + '\n')
+                sys.stdout.flush()
 
             _session.commit()
         _session.close()
@@ -68,7 +71,8 @@ class FoldDbGis:
 
                 if self.__commit_every == counter:
                     if self.__verbose is True:
-                        print("{:15,d}".format(verbose))
+                        sys.stdout.write("{:15,d}".format(verbose) + '\n')
+                        sys.stdout.flush()
                     _session.commit()
                     counter = 1
                 else:
@@ -77,7 +81,8 @@ class FoldDbGis:
                     verbose += 1
 
             if self.__verbose is True:
-                print("{:15,d}".format(verbose))
+                sys.stdout.write("{:15,d}".format(verbose) + '\n')
+                sys.stdout.flush()
 
             _session.commit()
         _session.close()
